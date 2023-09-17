@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const buildingSchema = new mongoose.Schema({
     building_name: {
@@ -11,4 +11,5 @@ const buildingSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Building', buildingSchema);
+const Building = mongoose.model('Building', buildingSchema);
+module.exports = Building;

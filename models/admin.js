@@ -1,10 +1,6 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const adminSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
     username: {
         type: String,
         required: true
@@ -13,7 +9,20 @@ const adminSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    google: String
+    name: {
+        type: String,
+        required: true
+    },
+    gender: {
+        type: String, 
+        required: true
+    }, 
+    creadate_date: {
+        type: Date,
+        default: Date.now
+    }
 });
 
-module.exports = mongoose.model('Admin', adminSchema);
+
+const Admin = mongoose.model('Admin', adminSchema);
+module.exports = Admin;

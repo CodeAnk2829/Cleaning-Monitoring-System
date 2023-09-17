@@ -1,10 +1,7 @@
-import mongoose, { SchemaType } from "mongoose";
+const mongoose = require('mongoose');
+
 const sweeperSchema = new mongoose.Schema({
-    s_name: {
-        type: String,
-        required: true
-    },
-    s_mobile: {
+    username: {
         type: String,
         required: true
     },
@@ -12,23 +9,24 @@ const sweeperSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    building_assigned: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Building'
+    s_name: {
+        type: String,
+        required: true
     },
-    block_assigned: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Block'
-    },
-    assigned_by: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Admin'
+    gender: {
+        type: String,
+        required: true
     },
     rating: {
         type: Number,
         min: 1,
         max: 5
+    },
+    created_date: {
+        type: Date,
+        default: Date.now
     }
 });
 
-module.exports = mongoose.model('Sweeper', sweeperSchema);
+const Sweeper = mongoose.model('Sweeper', sweeperSchema);
+module.exports = Sweeper;

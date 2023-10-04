@@ -1,36 +1,38 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const session = require('express-session');
-const passport = require('passport');
+const fileUpload = require('express-fileupload');
+const path = require('path');
+const cookieParser = require('cookie-parser');
 
 
 const port = process.env.PORT || 3000;
 const app = express();
 
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-app.use(session({
-    secret: "The secret of profile.",
-    resave: false,
-    saveUninitialized: false
-}));
-app.use(passport.initialize());
-app.use(passport.session());
 
-// Establish connection
-mongoose.set("strictQuery", false);
-mongoose.connect('mongodb://127.0.0.1:27017/TMSdatabase');
+app.use(express.json());
+app.use(cookieParser());
+app.use(fileUpload());
+
+// import database
+const connectDatabase = require('./config/db.js');
+connectDatabase();
 
 const Admin = require('./models/Admin');
 const Sweeper = require('./models/Sweeper');
 
-const {authRoute, adminRoute, sweeperRoute} = require('./routes');
-
+// get current user
+const {getCurrentUser} = require('./middleware/auth.js');
+const authRoute = require('./routes/authRoute.js');
+const adminRoute = require('./routes/adminRoute.js');
+const sweeperRoute = require('./routes/sweeperRoute.js');
 
 // const admin1 = new Admin({
 //     username: 7779833918,
@@ -49,7 +51,7 @@ const {authRoute, adminRoute, sweeperRoute} = require('./routes');
 // });
 // sweeper1.save();
 
-
+app.get('*', getCurrentUser);
 app.use('/', authRoute);
 app.use('/', adminRoute);
 app.use('/', sweeperRoute);

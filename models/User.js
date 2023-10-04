@@ -1,15 +1,27 @@
-// import mongoose from "mongoose";
+require('dotenv').config();
 const mongoose = require('mongoose');
-// const passportLocalMongoose = require('passport-local-mongoose');
+const { isMobilePhone } = require('validator');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
     username: {
         type: String, 
-        required: true
+        required: [true, 'Username required'],
+        unique: true,
+        minLength: 10,
+        maxLength: 10,
+        validate: [isMobilePhone, 'en-IN', 'Please enter a valid mobile number']
     },
     password: {
         type: String,
-        required: true
+        required: [true, 'Password required'],
+        minLength: [5, 'Minimum password length is 5 characters']
+    },
+    role: {
+        type: String,
+        enum: ['admin', 'sweeper', 'college-supervisor', 'company-supervisor'],
+        default: 'sweeper'
     },
     created_date: {
         type: Date,
@@ -17,7 +29,30 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-// userSchema.plugin(passportLocalMongoose);
+
+
+// method for jwt signature
+userSchema.methods.getJWTToken = function (id) {
+    return jwt.sign({ id }, process.env.JWT_SECRET,{
+        expiresIn: process.env.JWT_EXPIRE*24*60*60,
+    });
+};
+
+// static method to login user
+userSchema.statics.login = async function(username, password) {
+    const user = await this.findOne({ username });
+    if(user) {
+        const isPasswordMatched = await bcrypt.compare(password, user.password);
+        console.log(isPasswordMatched);
+        if(isPasswordMatched) {
+            console.log('password matched');
+            return user;
+        }
+        throw Error('Invlalid username or password');
+    }
+    throw Error('Incorrect username or password');
+}
 
 const User = mongoose.model('User', userSchema);
+
 module.exports = User;

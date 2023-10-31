@@ -1,29 +1,25 @@
 const mongoose = require('mongoose');
 
 const imageSchema = new mongoose.Schema({
-    img_path: {
+    filename: {
         type: String,
         required: true
     },
-    building_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Building'
-    },
-    block_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Block'
+    img_path: {
+        type: String,
+        required: true
     },
     floor_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Floor'
     },
-    toilet_id: {
+    washroom_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Toilet'
+        ref: 'Washroom'
     },
     uploaded_by: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Admin'
+        ref: 'Sweeper'
     },
     upload_date: {
         type: String,

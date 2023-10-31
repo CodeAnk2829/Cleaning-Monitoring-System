@@ -5,6 +5,7 @@ const User = require("../models/User.js");
 
 exports.isAuthenticatedUser = catchAsyncErrors(async (req,res,next)=>{
     const token = req.cookies.uid;
+    console.log(token);
     let decodedData = null;
     if(token) {
         jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
@@ -56,7 +57,8 @@ exports.getCurrentUser = (req, res, next) => {
 
 exports.authorizeRoles = (...roles)=>{
     return (req,res,next)=>{
-        if(!roles.includes(req.user.role)){
+        if(!roles.includes(req.user.role)){ 
+            res.redirect('/login/admin');
           return next(  new ErrorHandler(`Role ${req.user.role} is not allowed to accessed this resource`,403));
         }
         next();

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <form action="/building-details" method="post">
+            <input type="text" name="building_name" placeholder="Building Name" required>
+
+            <br>
+            <label for="block_a">Block A</label> 
+            <input type="checkbox" name="blocks" value="Block A" id="block_a">
+
+            <label for="block_b">Block B</label>
+            <input type="checkbox" name="blocks" value="Block B" id="block_b">
+
+            <label for="block_c">Block C</label>
+            <input type="checkbox" name="blocks" value="Block C" id="block_c">
+
+            <label for="block_d">Block D</label>
+            <input type="checkbox" name="blocks" value="Block D" id="block_d">
+
+            <br>
+            <label for="floor_0">Floor 0</label>
+            <input type="checkbox" name="floors" value="Floor 0" id="floor_0">
+            
+            <label for="floor_1">Floor 1</label>
+            <input type="checkbox" name="floors" value="Floor 1" id="floor_1">
+            
+            <label for="floor_2">Floor 2</label>
+            <input type="checkbox" name="floors" value="Floor 2" id="floor_2">
+            
+            <label for="floor_3">Floor 3</label>
+            <input type="checkbox" name="floors" value="Floor 3" id="floor_3">
+
+            <label for="controller">Controller: </label>
+            <select name="controller" id="controller">
+                <option value="">Select</option>
+                <% admins.forEach((admin) => {%>
+                    <option value="<%= admin._id %>"><%= admin.name %></option>
+                <%})%>
+            </select>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

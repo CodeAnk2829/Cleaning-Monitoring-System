@@ -18,9 +18,17 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Password required'],
         minLength: [5, 'Minimum password length is 5 characters']
     },
+    name: {
+        type: String,
+        required: [true, 'Please enter your name']
+    },
+    gender: {
+        type: String,
+        required: [true, 'Gender information needed']
+    },
     role: {
         type: String,
-        enum: ['admin', 'sweeper', 'college-supervisor', 'company-supervisor'],
+        enum: ['admin', 'sweeper'],
         default: 'sweeper'
     },
     created_date: {
@@ -48,7 +56,7 @@ userSchema.statics.login = async function(username, password) {
             console.log('password matched');
             return user;
         }
-        throw Error('Invlalid username or password');
+        throw Error('Invalid username or password');
     }
     throw Error('Incorrect username or password');
 }

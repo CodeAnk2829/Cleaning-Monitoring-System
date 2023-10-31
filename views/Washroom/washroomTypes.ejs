@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category</title>
+    <link rel="stylesheet" href="styles/cleaner-page1.css">
+</head>
+<body>
+        <!-- for female washrooms -->
+        <form action="/washrooms" method="post">
+            <input type="hidden" name="floorId" value="<%=floorId%>">
+            <input type="hidden" name="type" value="female">
+            <button class="card">
+                <h1 class="washrooms">FEMALE</h1>
+            </button>
+        </form>
+
+        <!-- for male washrooms -->
+        <form action="/washrooms" method="post">
+            <input type="hidden" name="floorId" value="<%=floorId%>">
+            <input type="hidden" name="type" value="male">
+            <button class="card">
+                <h1 class="washrooms">MALE</h1>
+            </button>
+        </form>
+
+</body>
+</html>

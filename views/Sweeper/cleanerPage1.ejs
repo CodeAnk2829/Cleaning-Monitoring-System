@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floor Cards</title>
+    <link rel="stylesheet" href="styles/cleaner-page1.css">
+</head>
+<body>
+
+    <% floors.forEach((floor) => {%>
+        <form action="/cleaner/floor" method="post">
+            <input type="hidden" name="floorId" value="<%=floor._id%>">
+            <input type="hidden" name="floorName" value="<%=floor.floor_name%>">
+            <button class="card">
+                <h2 class="floor"><%= floor.floor_name %></h2>
+                <p>Click to go to <%= floor.floor_name %></p>
+            </button>
+        </form>
+    <%});%>
+
+    <!-- <button class="card" onclick="window.location.href = 'cleanerFloor2.html';">
+        <h2 class="floor">Floor 2</h2>
+        <p>Click to go to Floor 2</p>
+    </button>
+
+    <button class="card" onclick="window.location.href = 'cleanerFloor3.html';">
+        <h2 class="floor">Floor 3</h2>
+        <p>Click to go to Floor 3</p>
+    </button> -->
+</body>
+</html>
+

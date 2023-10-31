@@ -9,7 +9,7 @@ const assignmentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Block'
     },
-    s_id: {
+    assignee: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Sweeper'
     },
@@ -18,15 +18,11 @@ const assignmentSchema = new mongoose.Schema({
         ref: 'Admin'
     },
     assign_date: {
-        type: String,
-        default: () => new Date().toLocaleDateString()
-    },
-    assign_time: {
-        type: String,
-        default: () => new Date().toLocaleTimeString()
+        type: Date,
+        default: Date.now
     }
 });
 
 
-const Assignment = mongoose.model('Assignment', assginmentSchema);
+const Assignment = mongoose.model('Assignment', assignmentSchema);
 module.exports = Assignment;

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Washrooms</title>
+    <link rel="stylesheet" href="styles/cleanerFloor.css">
+</head>
+<body>
+    <% if(type === 'male') {%>
+        <h1>Male Washroom</h1>
+    <% } else { %>
+        <h1>Female Washroom</h1>
+    <% } %>
+
+    <% washrooms.forEach((washroom)=> {%>
+        <form action="/washroom" method="post">
+            <input type="hidden" name="washroomId" value="<%=washroom._id%>">
+            <input type="hidden" name="id" value="<%=id%>">
+            <input type="hidden" name="floor" value="<%=floor%>">
+            <input type="hidden" name="type" value="<%=type%>">
+            <input type="hidden" name="washroomName" value="<%=washroom.t_name%>">
+            <button class="card">
+                <h2 class="washroom">
+                    <%= washroom.t_name %>
+                </h2>
+                <img src="../../images/toilet.png">
+            </button>
+        </form>
+    <% }); %>
+</body>
+</html>

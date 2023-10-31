@@ -2,22 +2,18 @@ const mongoose = require('mongoose');
 
 const adminSchema = new mongoose.Schema({
     username: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     },
     name: {
         type: String,
-        required: true
+        required: [true, "Please enter you name"]
     },
     gender: {
         type: String, 
         required: true
-    }, 
-    creadate_date: {
+    },
+    created_date: {
         type: Date,
         default: Date.now
     }

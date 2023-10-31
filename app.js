@@ -29,32 +29,24 @@ const Admin = require('./models/Admin');
 const Sweeper = require('./models/Sweeper');
 
 // get current user
+const Block = require('./models/Block.js');
 const {getCurrentUser} = require('./middleware/auth.js');
 const authRoute = require('./routes/authRoute.js');
 const adminRoute = require('./routes/adminRoute.js');
 const sweeperRoute = require('./routes/sweeperRoute.js');
-
-// const admin1 = new Admin({
-//     username: 7779833918,
-//     password: 12345,
-//     name: 'Bholanath Roy',
-//     gender: 'M'
-// });
-// admin1.save();
-
-// const sweeper1 = new Sweeper({
-//     username: 7777777777,
-//     password: 12345,
-//     s_name: 'Vikram',
-//     gender: 'M',
-//     rating: 4
-// });
-// sweeper1.save();
+const buildingRoute = require('./routes/buildingRoute.js');
+const blockRoute = require('./routes/blockRoute.js');
+const floorRoute = require('./routes/floorRoute.js');
+const washroomRoute = require('./routes/washroomRoute.js');
 
 app.get('*', getCurrentUser);
 app.use('/', authRoute);
 app.use('/', adminRoute);
 app.use('/', sweeperRoute);
+app.use('/', buildingRoute);
+app.use('/', blockRoute);
+app.use('/', floorRoute)
+app.use('/', washroomRoute);
 
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));

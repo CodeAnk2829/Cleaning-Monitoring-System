@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- ... (your head content) ... -->
+</head>
+
+<body>
+    <form action="/register" method="post">
+        <input type="text" name="name" placeholder="Enter your full name" required>
+        <label for="male">M</label>
+        <input type="radio" name="gender" id="male" value="M" required>
+        <label for="female">F</label>
+        <input type="radio" name="gender" id="female" value="F" required>
+        <input type="text" name="username" placeholder="Mobile No." required>
+        <input type="hidden" name="currentAdmin" value="<%= currentAdmin._id %>">
+        <label for="building">Building: </label>
+        <select name="building" id="building" required>
+            <option value="">Select</option>
+            <% buildings.forEach((building)=> { %>
+                <option value="<%= building._id %>">
+                    <%= building.building_name %>
+                </option>
+                <% }); %>
+        </select>
+        <label for="block">Blocks: </label>
+        <select name="blockName" id="block" required>
+            <option value="">Select</option>
+            <!-- <option value="Block A">Block A</option> 
+            <option value="Block B">Block B</option> 
+            <option value="Block C">Block C</option> 
+            <option value="Block D">Block D</option>  -->
+        </select>
+        <input type="hidden" name="role" value="sweeper">
+        <input type="password" name="password" placeholder="New Password" required>
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+        <button type="submit">ASSIGN</button>
+    </form>
+
+    <script>
+        function fetch_data(parentElement, childElement) {
+            console.log('this is fetch data');
+            fetch(`/populateBlocks?parentId=${parentElement.value}`) // Corrected the variable name
+                .then((res) => {
+                    return res.json(); // Corrected the variable name
+                })
+                .then(responseData => {
+                    let html = '<option value="">Select</option>';
+                    for (let count = 0; count < responseData.length; count++) {
+                        html += `<option value="${responseData[count].block_name}">${responseData[count].block_name}</option>`;
+                    }
+                    childElement.innerHTML = html; // Corrected the variable name
+                })
+        }
+
+        document.getElementById('building').onchange = function () {
+            const parentElement = document.getElementById('building'); // Use getElementById, not getElementsById
+            const childElement = document.getElementById('block'); // Use getElementById, not getElementsById
+            fetch_data(parentElement, childElement);
+        }
+    </script>
+
+</body>
+
+</html>
